@@ -13,14 +13,12 @@ pipeline {
         }
         stage('local docker-compose') {
             steps {
-              ws('/var/lib/jenkins/workspace/rf-v1_develop@2') {
                 sh 'pwd'
                 sh 'ls -al'
                 sh 'docker-compose up -d'
-              }
             }
         }
-      stage('slave1'){
+      stage('slave01'){
             agent{ label 'slave01' }
             steps{
                 sh 'pwd'
