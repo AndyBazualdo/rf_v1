@@ -20,7 +20,7 @@ pipeline {
             }
         }
       stage('slave01'){
-            agent{ label 'slave1' }
+            agent{ label 'slave01' }
             steps{
                 sh 'pwd'
                 sh 'ls -la'
