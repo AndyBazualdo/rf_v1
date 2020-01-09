@@ -8,6 +8,7 @@ pipeline {
             steps {
                 sh 'pwd'
                 sh 'ls -al'
+                sh 'whoami'
                 //sh "robot /home/andy/tests/Outlook/test1.robot"
             }
         }
