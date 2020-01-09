@@ -25,6 +25,9 @@ pipeline {
                 sh 'pwd'
                 sh 'ls -la'
                 sh "cd ./tests/Outlook/"
+                sh 'pwd'
+                sh 'ls -la'
+                sh "python -m robot.run --NoStatusRC test1.robot"
             }
       }
   }
