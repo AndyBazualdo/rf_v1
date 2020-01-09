@@ -1,0 +1,7 @@
+version: "3"
+
+services:
+  rf_v1:
+    image: gato756/rf_v1:latest
+    command: /bin/bash
+    tty: true
