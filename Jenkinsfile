@@ -8,7 +8,7 @@ pipeline {
             steps {
                 sh 'pwd'
                 sh 'ls -al'
-                sh "robot /home/andy/tests/Outlook/test1.robot"
+                //sh "robot /home/andy/tests/Outlook/test1.robot"
             }
         }
         stage('local docker-compose') {
