@@ -12,6 +12,7 @@ pipeline {
             }
         }
         stage('local docker-compose') {
+            agent{ label 'master' }
             steps {
                 sh 'pwd'
                 sh 'ls -al'
