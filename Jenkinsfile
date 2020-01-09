@@ -25,6 +25,7 @@ pipeline {
             steps{
                 sh 'pwd'
                 sh 'ls -la'
+                sh "robot /home/andy/tests/Outlook/test1.robot"
             }
       }
   }
