@@ -3,7 +3,8 @@ pipeline {
     stages {
         stage('local docker image') {
             agent {
-                 docker { image 'gato756/rf_v1:latest' }
+                 //docker { image 'gato756/rf_v1:latest' }
+                 docker { image 'lastrf:latest' }
             }
             steps {
                 sh 'pwd'
