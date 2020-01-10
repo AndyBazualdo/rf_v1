@@ -1,7 +1,7 @@
 pipeline {
     agent none
     stages {
-      stage('local docker image') {
+      /*stage('local docker image') {
             agent { docker { image 'gato756/rf_v1:latest' }
             }
             steps {
@@ -27,9 +27,8 @@ pipeline {
                   sh 'pwd'
                   sh 'ls -la'
                   sh "python -m robot.run --NoStatusRC ./tests/Outlook/test1.robot"
-                  robot logFileName: 'report/output', outputFileName: 'report/output', outputPath: 'reports', reportFileName: 'report/output'
               }
-      }
+      }*/
       stage('slave01 with plugin'){
             agent{ label 'slave01' }
             steps{
@@ -37,6 +36,7 @@ pipeline {
                 sh 'ls -la'
                 //sh "python -m robot.run --NoStatusRC ./tests/Outlook/test1.robot"
                 sh 'python -m robot.run --NoStatusRC --variable SERVER:${CT_SERVER} --outputdir ./reports ./tests/Outlook/test1.robot'
+                robot logFileName: 'report/output', outputFileName: 'report/output', outputPath: 'reports', reportFileName: 'report/output'
             }
       }
   }
