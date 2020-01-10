@@ -1,8 +1,7 @@
 pipeline {
-    agent { label 'master'}
+    agent none
     stages {
       stage('local docker image') {
-            agent { label 'master' }
             agent { docker { image 'gato756/rf_v1:latest' }
             }
             steps {
