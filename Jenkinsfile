@@ -34,10 +34,8 @@ pipeline {
             steps{
                 sh 'pwd'
                 sh 'ls -la'
-                sh "cd ./tests/Outlook/"
-                sh 'pwd'
-                sh 'ls -la'
-                sh "python -m robot.run --NoStatusRC ./tests/Outlook/test1.robot"
+                //sh "python -m robot.run --NoStatusRC ./tests/Outlook/test1.robot"
+                sh 'python -m robot.run --NoStatusRC --variable SERVER:${CT_SERVER} --outputdir ./reports ./tests/Outlook/test1.robot'
             }
       }
   }
@@ -45,7 +43,6 @@ pipeline {
     always {
         node('master') {
           sh 'docker-compose down'
-          sh 'docker stop $(docker ps -a -q)'
           sh 'docker rm $(docker ps -a -q) -f'
           cleanWs deleteDirs: true, notFailBuild: true
         }
