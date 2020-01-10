@@ -1,7 +1,7 @@
 pipeline {
     agent { label 'master'}
     stages {
-        stage('local docker image') {
+      stage('local docker image') {
             agent {
                  docker { image 'gato756/rf_v1:latest' }
             }
@@ -10,16 +10,27 @@ pipeline {
                 sh 'ls -al'
                 sh "python -m robot.run --NoStatusRC /home/andy/tests/Outlook/test1.robot"
             }
-        }
-        stage('local docker-compose') {
+      }
+      stage('local docker-compose') {
             agent{ label 'master' }
             steps {
                 sh 'pwd'
                 sh 'ls -al'
                 sh 'docker-compose up -d'
             }
-        }
+      }
       stage('slave01'){
+              agent{ label 'slave01' }
+              steps{
+                  sh 'pwd'
+                  sh 'ls -la'
+                  sh "cd ./tests/Outlook/"
+                  sh 'pwd'
+                  sh 'ls -la'
+                  sh "python -m robot.run --NoStatusRC ./tests/Outlook/test1.robot"
+              }
+      }
+      stage('slave01 with plugin'){
             agent{ label 'slave01' }
             steps{
                 sh 'pwd'
