@@ -3,6 +3,7 @@ pipeline {
     stages {
       stage('local docker image') {
             agent {
+                 label 'master'
                  docker { image 'gato756/rf_v1:latest' }
             }
             steps {
