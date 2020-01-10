@@ -43,9 +43,8 @@ pipeline {
   }
   post{
     always {
-      stage('clean') {
-        agent { label 'master'}
-        steps {
+
+        node('master') {
           sh 'docker-compose down'
           sh 'docker stop $(docker ps -a -q)'
           sh 'docker rm $(docker ps -a -q) -f'
