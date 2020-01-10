@@ -2,9 +2,8 @@ pipeline {
     agent { label 'master'}
     stages {
       stage('local docker image') {
-            agent {
-                 label 'master'
-                 docker { image 'gato756/rf_v1:latest' }
+            agent { label 'master' }
+            agent { docker { image 'gato756/rf_v1:latest' }
             }
             steps {
                 sh 'pwd'
