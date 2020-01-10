@@ -43,7 +43,6 @@ pipeline {
   }
   post{
     always {
-
         node('master') {
           sh 'docker-compose down'
           sh 'docker stop $(docker ps -a -q)'
@@ -52,5 +51,4 @@ pipeline {
         }
       }
     }
-}
 }
