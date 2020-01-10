@@ -27,6 +27,7 @@ pipeline {
                   sh 'pwd'
                   sh 'ls -la'
                   sh "python -m robot.run --NoStatusRC ./tests/Outlook/test1.robot"
+                  robot logFileName: 'report/output', outputFileName: 'report/output', outputPath: 'reports', reportFileName: 'report/output'
               }
       }
       stage('slave01 with plugin'){
@@ -43,7 +44,7 @@ pipeline {
     always {
         node('master') {
           sh 'docker-compose down'
-          sh 'docker rm $(docker ps -a -q) -f'
+          //sh 'docker rm $(docker ps -a -q) -f'
           cleanWs deleteDirs: true, notFailBuild: true
         }
       }
