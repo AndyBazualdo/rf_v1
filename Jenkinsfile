@@ -43,10 +43,13 @@ pipeline {
   }
   post{
     always {
-          sh 'docker-compose down'
-          sh 'docker stop $(docker ps -a -q)'
-          sh 'docker rm $(docker ps -a -q) -f'
+      agent { agent { label 'master'}}
+      steps {
+        sh 'docker-compose down'
+        sh 'docker stop $(docker ps -a -q)'
+        sh 'docker rm $(docker ps -a -q) -f'
         cleanWs deleteDirs: true, notFailBuild: true
+      }
     }
 }
 }
