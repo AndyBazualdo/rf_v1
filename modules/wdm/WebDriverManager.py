@@ -9,6 +9,7 @@ from webdriver_manager.chrome import ChromeDriverManager
 from webdriver_manager.firefox import GeckoDriverManager
 from selenium.webdriver.chrome.options import Options
 from config.config import Config
+from pyvirtualdisplay import Display
 
 class WebDriverManager(object):
 
@@ -30,6 +31,8 @@ class WebDriverManager(object):
                     cls.__driver = driver
 
             if (browser.lower()) == "firefox":
+		display = Display(visible=0, size=(1366, 768))
+		display.start()
                 if (alreadyInstalled):
                     cls.__driver =  webdriver.Firefox(Config.EXECUTABLE_PATH)
                 else:
