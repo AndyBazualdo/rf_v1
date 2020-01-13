@@ -20,7 +20,8 @@ class WebDriverManager(object):
         alreadyInstalled = False
         browser = Config.DRIVER_TYPE.lower()
         if cls.__driver is None:
-
+	    display = Display(visible=0, size=(1366, 768))
+            display.start()
             if (path.exists(Config.EXECUTABLE_PATH)):
                 alreadyInstalled = True
             if (browser.lower()) == "chrome":
@@ -31,9 +32,7 @@ class WebDriverManager(object):
                     cls.__driver = driver
 
             if (browser.lower()) == "firefox":
-		display = Display(visible=0, size=(1366, 768))
-		display.start()
-                if (alreadyInstalled):
+	        if (alreadyInstalled):
                     cls.__driver =  webdriver.Firefox(Config.EXECUTABLE_PATH)
                 else:
                     cls.__driver = webdriver.Firefox(executable_path=GeckoDriverManager().install())
