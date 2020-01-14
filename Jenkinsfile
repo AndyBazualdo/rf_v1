@@ -28,7 +28,7 @@ pipeline {
                 sh 'pwd'
                 sh 'ls -la'
                 //sh 'x11vnc -nopw -noxdamage -ncache 10 -display :0 -localhost & vncviewer :0'
-                wrap([$class: 'Xvnc', takeScreenshot: false, useXauthority: false]) {
+                wrap([$class: 'Xvnc', takeScreenshot: false, useXauthority: true]) {
                   sh 'python -m robot.run --NoStatusRC --variable SERVER:${CT_SERVER} --outputdir ./reports ./tests/Outlook/test1.robot'
                 }
                 robot logFileName: 'log.html', outputFileName: 'output.xml', outputPath: 'reports', passThreshold: 95.0, reportFileName: 'report.html', unstableThreshold: 5.0
