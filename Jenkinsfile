@@ -28,7 +28,7 @@ pipeline {
                 sh 'pwd'
                 sh 'ls -la'
                 //sh 'x11vnc -nopw -noxdamage -ncache 10 -display :0 -localhost & vncviewer :0'
-                wrap([$class: 'Xvfb', additionalOptions: '', assignedLabels: '', autoDisplayName: true, debug: true, displayNameOffset: 0, installationName: 'XVFB', parallelBuild: true, screen: '1024x758x24', timeout: 25]) {
+                wrap([$class: 'Xvfb']) {
                   sh 'python -m robot.run --NoStatusRC --variable SERVER:${CT_SERVER} --outputdir ./reports ./tests/Outlook/test1.robot'
                 }
                 robot logFileName: 'log.html', outputFileName: 'output.xml', outputPath: 'reports', passThreshold: 95.0, reportFileName: 'report.html', unstableThreshold: 5.0
