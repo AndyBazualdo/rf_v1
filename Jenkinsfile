@@ -27,9 +27,9 @@ pipeline {
                 sh "cd ./tests/Outlook/"
                 sh 'pwd'
                 sh 'ls -la'
-                wrap([$class: 'Xvfb', additionalOptions: '', assignedLabels: 'slave01 ', debug: true, displayNameOffset: 0, screen: '', timeout: 3]) {
+                //wrap([$class: 'Xvfb', additionalOptions: '', assignedLabels: 'slave01 ', debug: true, displayNameOffset: 0, screen: '', timeout: 3]) {
                   sh 'python -m robot.run --NoStatusRC --variable SERVER:${CT_SERVER} --outputdir ./reports ./tests/Outlook/test1.robot'
-                }
+                //}
                 robot logFileName: 'log.html', outputFileName: 'output.xml', outputPath: 'reports', passThreshold: 95.0, reportFileName: 'report.html', unstableThreshold: 5.0
             }
       }
