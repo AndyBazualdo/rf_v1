@@ -9,7 +9,7 @@ from webdriver_manager.chrome import ChromeDriverManager
 from webdriver_manager.firefox import GeckoDriverManager
 from selenium.webdriver.chrome.options import Options
 from config.config import Config
-from pyvirtualdisplay import Display
+#from pyvirtualdisplay import Display
 
 class WebDriverManager(object):
 
@@ -20,8 +20,8 @@ class WebDriverManager(object):
         alreadyInstalled = False
         browser = Config.DRIVER_TYPE.lower()
         if cls.__driver is None:
-	    display = Display(visible=0, size=(1366, 768))
-            display.start()
+	    #display = Display(visible=0, size=(1366, 768))
+        #    display.start()
             if (path.exists(Config.EXECUTABLE_PATH)):
                 alreadyInstalled = True
             if (browser.lower()) == "chrome":
