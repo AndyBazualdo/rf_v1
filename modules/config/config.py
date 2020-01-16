@@ -5,4 +5,4 @@ class Config():
     # BASE_URL = "http://blazedemo.com/"
     BASE_URL = "http://www.office.com/"
     IMPLICIT_TIME = 30
-    REMOTE_DRIVER = "f"
+    REMOTE_DRIVER = "c"
