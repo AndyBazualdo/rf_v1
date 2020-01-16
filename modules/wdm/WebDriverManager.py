@@ -40,11 +40,7 @@ class WebDriverManager(object):
 
             if (browser.lower()) == "remote":
                 if (Config.REMOTE_DRIVER == "c"):
-                    chrome_options = Options()
-                    chrome_options.add_argument('--no-sandbox')
-                    chrome_options.add_argument('--disable-dev-shm-usage')
-                    cls.__driver =  webdriver.Remote(command_executor='http://localhost:4444/wd/hub', chrome_options=chrome_options, 
-                    desired_capabilities=DesiredCapabilities.CHROME)
+                    cls.__driver =  webdriver.Remote(command_executor='http://localhost:4444/wd/hub', desired_capabilities=DesiredCapabilities.CHROME)
                 if (Config.REMOTE_DRIVER == "f"):
                     cls.__driver =  webdriver.Remote(command_executor='http://localhost:4444/wd/hub', desired_capabilities=DesiredCapabilities.FIREFOX)
 
