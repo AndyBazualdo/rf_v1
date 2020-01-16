@@ -40,6 +40,7 @@ pipeline {
                 sh "docker run -d -e HUB_PORT_4444_TCP_ADDR=${seleniumHub} -e HUB_PORT_4444_TCP_PORT=4444 --network ${network} --name ${firefox} selenium/node-firefox"
                 */
                 sh 'docker-compose -f docker-compose1.yml up -d'
+                sleep(time:20,unit:"SECONDS")
                 sh 'pwd'
                 sh 'ls -la'
                 sh 'python -m robot.run --NoStatusRC --variable SERVER:${CT_SERVER} --outputdir ./reports ./tests/Outlook/test1.robot'
