@@ -8,6 +8,7 @@ from os import path
 from webdriver_manager.chrome import ChromeDriverManager
 from webdriver_manager.firefox import GeckoDriverManager
 from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 from config.config import Config
 from pyvirtualdisplay import Display
 
@@ -20,8 +21,8 @@ class WebDriverManager(object):
         alreadyInstalled = False
         browser = Config.DRIVER_TYPE.lower()
         if cls.__driver is None:
-	    display = Display(visible=0, size=(1366, 768))
-            display.start()
+            #display = Display(visible=0, size=(1366, 768))
+            #display.start()
             if (path.exists(Config.EXECUTABLE_PATH)):
                 alreadyInstalled = True
             if (browser.lower()) == "chrome":
@@ -32,10 +33,17 @@ class WebDriverManager(object):
                     cls.__driver = driver
 
             if (browser.lower()) == "firefox":
-	        if (alreadyInstalled):
+                if (alreadyInstalled):
                     cls.__driver =  webdriver.Firefox(Config.EXECUTABLE_PATH)
                 else:
                     cls.__driver = webdriver.Firefox(executable_path=GeckoDriverManager().install())
+
+            if (browser.lower()) == "remote":
+                if (Config.REMOTE_DRIVER == "c"):
+                    cls.__driver =  webdriver.Remote(command_executor='http://localhost:4444/wd/hub', desired_capabilities=DesiredCapabilities.CHROME)
+                if (Config.REMOTE_DRIVER == "f"):
+                    cls.__driver =  webdriver.Remote(command_executor='http://localhost:4444/wd/hub', desired_capabilities=DesiredCapabilities.FIREFOX)
+
 
             if (browser.lower()) == "chromeheadless":
                 chrome_options = Options()
