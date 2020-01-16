@@ -28,7 +28,7 @@ pipeline {
                 sh 'pwd'
                 sh 'ls -la'
 
-                wrap([$class: 'Xvnc', takeScreenshot: False, useXauthority: True]) {
+                wrap([$class: 'Xvnc', takeScreenshot: false, useXauthority: true]) {
                   sh 'python -m robot.run --NoStatusRC --variable SERVER:${CT_SERVER} --outputdir ./reports ./tests/Outlook/test1.robot'
                 }
                 robot logFileName: 'log.html', outputFileName: 'output.xml', outputPath: 'reports', passThreshold: 95.0, reportFileName: 'report.html', unstableThreshold: 5.0
