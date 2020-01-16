@@ -34,12 +34,11 @@ pipeline {
       stage('slave01 + docker approach'){
             agent{ label 'slave01' }
             steps{
-                /*sh "docker network create ${network}"
-                sh "docker run -d -p 4444:4444 --name ${seleniumHub} --network ${network} selenium/hub"
-                sh "docker run -d -e HUB_PORT_4444_TCP_ADDR=${seleniumHub} -e HUB_PORT_4444_TCP_PORT=4444 --network ${network} --name ${chrome} selenium/node-chrome"
-                sh "docker run -d -e HUB_PORT_4444_TCP_ADDR=${seleniumHub} -e HUB_PORT_4444_TCP_PORT=4444 --network ${network} --name ${firefox} selenium/node-firefox"
-                */
-                sh 'docker-compose -f docker-compose1.yml up -d'
+
+                sh "docker run -d -p 4444:4444 --name selenium-hub selenium/hub"
+                sh "docker run -d -P -p 5900:5900 --link selenium-hub:hub -v /dev/shm:/dev/shm selenium/node-chrome-debug"
+                sh "docker run -d -P -p 5901:5900 --link selenium-hub:hub -v /dev/shm:/dev/shm selenium/node-firefox-debug"
+                //sh 'docker-compose -f docker-compose1.yml up -d'
                 sleep(time:20,unit:"SECONDS")
                 sh 'pwd'
                 sh 'ls -la'
