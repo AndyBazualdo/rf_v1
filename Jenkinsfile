@@ -27,7 +27,7 @@ pipeline {
                 sh "cd ./tests/Outlook/"
                 sh 'pwd'
                 sh 'ls -la'
-                sh 'x11vnc -nopw -noxdamage -ncache 10 -display :0 -localhost & vncviewer :0'
+                
                 wrap([$class: 'Xvnc', takeScreenshot: true, useXauthority: true]) {
                   sh 'python -m robot.run --NoStatusRC --variable SERVER:${CT_SERVER} --outputdir ./reports ./tests/Outlook/test1.robot'
                 }
