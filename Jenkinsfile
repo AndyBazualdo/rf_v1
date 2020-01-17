@@ -38,13 +38,15 @@ pipeline {
                 sh "docker run -d -p 4444:4444 --name selenium-hub selenium/hub"
                 sh "docker run -d -P -p 5900:5900 --link selenium-hub:hub -v /dev/shm:/dev/shm selenium/node-chrome-debug"
                 sh "docker run -d -P -p 5901:5900 --link selenium-hub:hub -v /dev/shm:/dev/shm selenium/node-firefox-debug"
-                //sh 'docker-compose -f docker-compose1.yml up -d'
                 sleep(time:20,unit:"SECONDS")
+                sh 'vncviewer localhost:5901 -passwd <(vncpasswd -f <<<"secret")'
                 sh 'pwd'
                 sh 'ls -la'
                 sh 'python -m robot.run --NoStatusRC --variable SERVER:${CT_SERVER} --outputdir ./reports ./tests/Outlook/test1.robot'
                 robot logFileName: 'log.html', outputFileName: 'output.xml', outputPath: 'reports', passThreshold: 95.0, reportFileName: 'report.html', unstableThreshold: 5.0
                 sh 'docker-compose -f docker-compose1.yml down'
+                sh 'docker stop $(docker ps -a -q)'
+                sh 'docker rm $(docker ps -a -q) -f'
             }
        }
   }
