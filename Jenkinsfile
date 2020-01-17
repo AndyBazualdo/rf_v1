@@ -36,10 +36,10 @@ pipeline {
             steps{
 
                 sh "docker run -d -p 4444:4444 --name selenium-hub selenium/hub"
-                sh "docker run -d -P -p 5900:5900 --link selenium-hub:hub -v /dev/shm:/dev/shm selenium/node-chrome-debug"
-                sh "docker run -d -P -p 5901:5900 --link selenium-hub:hub -v /dev/shm:/dev/shm selenium/node-firefox-debug"
+                sh "docker run -d -P -p 5900:5900 --link selenium-hub:hub -e VNC_NO_PASSWORD=1 -v /dev/shm:/dev/shm selenium/node-chrome-debug"
+                sh "docker run -d -P -p 5901:5900 --link selenium-hub:hub -e VNC_NO_PASSWORD=1 -v /dev/shm:/dev/shm selenium/node-firefox-debug"
                 sleep(time:20,unit:"SECONDS")
-                sh '''#!/bin/bash vncviewer -passwd <(vncpasswd -f <<<"secret") localhost:5900'''
+                sh 'vncviewer localhost:5900'
                 sh 'pwd'
                 sh 'ls -la'
                 sh 'python -m robot.run --NoStatusRC --variable SERVER:${CT_SERVER} --outputdir ./reports ./tests/Outlook/test1.robot'
