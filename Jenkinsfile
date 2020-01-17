@@ -40,7 +40,7 @@ pipeline {
                 sh "docker run -d -P -p 5901:5900 --link selenium-hub:hub -e VNC_NO_PASSWORD=1 -v /dev/shm:/dev/shm selenium/node-firefox-debug"
                 sleep(time:20,unit:"SECONDS")
                 //wrap([$class: 'Xvnc', takeScreenshot: false, useXauthority: false]) {
-                sh 'vncviewer -via jenkins@192.168.196.134 localhost:5900'
+                //sh 'vncviewer -via jenkins@192.168.196.134 localhost:5900'
                 sh 'pwd'
                 sh 'ls -la'
                 sh 'python -m robot.run --NoStatusRC --variable SERVER:${CT_SERVER} --outputdir ./reports ./tests/Outlook/test1.robot'
