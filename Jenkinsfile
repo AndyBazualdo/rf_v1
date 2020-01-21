@@ -39,6 +39,7 @@ pipeline {
                 sh "docker run -d -P -p 5900:5900 --link selenium-hub:hub -e VNC_NO_PASSWORD=1 -v /dev/shm:/dev/shm selenium/node-chrome-debug"
                 sh "docker run -d -P -p 5901:5900 --link selenium-hub:hub -e VNC_NO_PASSWORD=1 -v /dev/shm:/dev/shm selenium/node-firefox-debug"
                 sleep(time:20,unit:"SECONDS")
+                wrap([$class: 'Xvnc', takeScreenshot: false, useXauthority: false]) {
                 sh 'export DISPLAY=:0'
                 sh 'vncviewer 192.168.196.134:5900'
                 //sh """sshpass -p 123 ssh -X -Y -C -g -L 5903:localhost:5900 jenkins@192.168.196.134 \\ vncviewer localhost:5900"""
@@ -50,6 +51,7 @@ pipeline {
                 sh 'docker-compose -f docker-compose1.yml down'
                 sh 'docker stop $(docker ps -a -q)'
                 sh 'docker rm $(docker ps -a -q) -f'
+                }
             }
        }
   }
