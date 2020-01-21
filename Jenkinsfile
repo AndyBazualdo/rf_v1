@@ -39,6 +39,7 @@ pipeline {
                 sh "docker run -d -P -p 5900:5900 --link selenium-hub:hub -e VNC_NO_PASSWORD=1 -v /dev/shm:/dev/shm selenium/node-chrome-debug"
                 sh "docker run -d -P -p 5901:5900 --link selenium-hub:hub -e VNC_NO_PASSWORD=1 -v /dev/shm:/dev/shm selenium/node-firefox-debug"
                 sleep(time:20,unit:"SECONDS")
+                sh 'export DISPLAY=:0'
                 sh 'vncviewer 192.168.196.134:5900'
                 //sh """sshpass -p 123 ssh -X -Y -C -g -L 5903:localhost:5900 jenkins@192.168.196.134 \\ vncviewer localhost:5900"""
                 //sh 'sshpass -p 123 ssh -X -Y -C -g -L 5901:localhost:5901 jenkins@192.168.196.134 \ vncviewer localhost:5901'
