@@ -41,7 +41,7 @@ pipeline {
                 sleep(time:20,unit:"SECONDS")
                 wrap([$class: 'Xvnc', takeScreenshot: false, useXauthority: false]) {
                 sh 'export DISPLAY=:0'
-                sh 'vncviewer 192.168.196.134:5900'
+                sh 'vncviewer localhost:5900'
                 //sh """sshpass -p 123 ssh -X -Y -C -g -L 5903:localhost:5900 jenkins@192.168.196.134 \\ vncviewer localhost:5900"""
                 //sh 'sshpass -p 123 ssh -X -Y -C -g -L 5901:localhost:5901 jenkins@192.168.196.134 \ vncviewer localhost:5901'
                 sh 'pwd'
