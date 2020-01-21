@@ -43,7 +43,7 @@ pipeline {
                 //sh 'export DISPLAY=:0'
                 //sh 'python startViewers.py'
                 //sh 'nohup vncviewer 192.168.196.134:5900'
-                sh """sshpass -p 123 ssh -X -Y -C -g -L 5903:localhost:5900 jenkins@192.168.196.134 \\ vncviewer localhost:5900"""
+                sh """sshpass -p 123 ssh -X -Y -C -g -L 5903:localhost:5900 jenkins@192.168.196.134 \\ vncviewer localhost:5900 &"""
                 //sh 'sshpass -p 123 ssh -X -Y -C -g -L 5901:localhost:5901 jenkins@192.168.196.134 \ vncviewer localhost:5901'
                 sh 'pwd'
                 sh 'ls -la'
