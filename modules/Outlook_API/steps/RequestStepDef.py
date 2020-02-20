@@ -7,6 +7,7 @@ from core.Authentication import Authentication
 from core.RequestManager import RequestManager
 from utils.EndPointHelper import EndPointHelper
 import json
+import time
 
 
 class RequestStepDef:
@@ -33,6 +34,13 @@ class RequestStepDef:
             print self.__requestSpecification
 
     def send_get_request_to(self, end_point, account, params=None):
+        self.__endpointHelper = EndPointHelper.build_endpoint(end_point, account)
+        self.__response = RequestManager.get(self.__endpointHelper,params)
+        self.__scenarioContext = ScenarioContext.set_context("Last_Response", self.__response)
+        self.print_results()
+
+    def send_get_request_with_wait_time(self, end_point, account, params=None):
+        time.sleep(20)
         self.__endpointHelper = EndPointHelper.build_endpoint(end_point, account)
         self.__response = RequestManager.get(self.__endpointHelper,params)
         self.__scenarioContext = ScenarioContext.set_context("Last_Response", self.__response)

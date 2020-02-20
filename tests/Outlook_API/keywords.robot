@@ -7,6 +7,8 @@ Variables  variables.py
 ${ACCOUNT}   ${email}
 ${PARAMS}   ${filterSubject}
 ${JSON}   ${emailToSent}
+${SUBJECT}   ${subj}
+${SUBJECT2}   ${subj2}
 
 *** Keywords ***
 Login Test
@@ -28,10 +30,13 @@ Outlook Send mail
     user authentication
     send post request to  /users/{value}/sendMail   ${account}  ${JSON}
     i should see the status code as  202
+    send_get_request_with_wait_time  /users/{value}/mailFolders/sentitems/messages   ${account}
+    the email subject is  ${subject2}
 
 Open mail
-    [Arguments]  ${account}  ${params}
+    [Arguments]  ${account}  ${params}  ${subject}
 
-    Given user authentication
-    When send get request to  /users/{value}/messages   ${account}  ${PARAMS}
-    And i should see the status code as  200
+    user authentication
+    send get request to  /users/{value}/messages   ${account}  ${PARAMS}
+    i should see the status code as  200
+    the email subject is  ${subject}
