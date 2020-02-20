@@ -13,9 +13,8 @@ ON_BEHALF_USER = False
 
 # Configurable variables for UI
 class Config():
-    DRIVER_TYPE = "Chrome"
+    DRIVER_TYPE = "Remote"
     EXECUTABLE_PATH = "C:/D/PyWorkspace/amazon/drivers/chromedriver.exe"
-    # BASE_URL = "http://blazedemo.com/"
     BASE_URL = "http://www.office.com/"
     IMPLICIT_TIME = 30
     REMOTE_DRIVER = "c"
