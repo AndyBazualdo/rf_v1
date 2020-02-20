@@ -3,9 +3,8 @@ import os
 
 sys.path.append(os.path.join(os.path.dirname(__file__), "..", ".."))
 from utils.ScenarioContext import ScenarioContext
-from core.Authentication import Authentication
-from core.RequestManager import RequestManager
 from utils.EndPointHelper import EndPointHelper
+import json
 
 
 class ResponseStepDef:
@@ -49,3 +48,13 @@ class ResponseStepDef:
                                  + " \n response: \n" + str(self.__response.content))
         else:
             self.print_results()
+
+    def the_email_subject_is(self, subject):
+        self.__response = self.__scenarioContext.get('Last_Response')
+        dic = json.loads(self.__response.content)
+
+        if dic["value"][0]["subject"] != subject:
+            raise AssertionError("Error: the subject of the response email no match with the "
+                                 + "subject sent in the request")
+        else:
+            print("The correct mail was opened with subject: " + dic["value"][0]["subject"])
